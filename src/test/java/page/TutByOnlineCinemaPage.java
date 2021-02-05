@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TutByOnlineCinemaPage extends BasePage {
     private String PAGE_URL = "https://afisha.tut.by/online-cinema/";
-
 
     public TutByOnlineCinemaPage(WebDriver driver) {
         super(driver);
@@ -23,12 +23,12 @@ public class TutByOnlineCinemaPage extends BasePage {
     @FindBy(xpath = "//span[text()='Комедия' and @class='text']")
     private WebElement comedyGenre;
     @FindBy(xpath = "//li[@class='lists__li ']/descendant::div[@class='txt']")
-    private ArrayList<WebElement> films;
+    private List<WebElement> films;
     @FindBy(xpath = "//li[@class='widget-tabs__li']")
     private WebElement serials;
     @FindBy(xpath = "//li[@class='widget-tabs__li ']")
     private WebElement multfilms;
-    private ArrayList<String> listGenreOfFilms;
+    private List<String> listGenreOfFilms = new ArrayList<>();
 
     public TutByOnlineCinemaPage chooseGenre() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(genreSection));
@@ -39,7 +39,7 @@ public class TutByOnlineCinemaPage extends BasePage {
     }
 
 
-    public ArrayList<String> viewGenre() {
+    public List<String> viewGenre() {
         for (WebElement film : films) {
             listGenreOfFilms.add(film.getText());
         }
