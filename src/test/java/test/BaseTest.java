@@ -13,8 +13,8 @@ public class BaseTest {
         driver = DriverSingelton.getDriver();
     }
 
-//    @AfterClass(alwaysRun = true)
-//    public void closeBrowser() {
-//        DriverSingelton.closeDriver();
-//    }
+    @AfterClass(alwaysRun = true)
+    public void closeBrowser() {
+        DriverSingelton.closeDriver();
+    }
 }
