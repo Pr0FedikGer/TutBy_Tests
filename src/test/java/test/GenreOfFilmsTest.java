@@ -3,11 +3,8 @@ package test;
 import driver.DriverSingelton;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.BasePage;
 import page.TutByHomePage;
-import page.TutByOnlineCinemaPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenreOfFilmsTest extends BaseTest {
@@ -20,8 +17,8 @@ public class GenreOfFilmsTest extends BaseTest {
                 .viewGenre();
 
 
-        for(String genreOfFilm: listGenreOfAllFilmsOnPage){
-            Assert.assertTrue(genreOfFilm.contains("Комедия"),"не комедия");
+        for (String genreOfFilm : listGenreOfAllFilmsOnPage) {
+            Assert.assertTrue(genreOfFilm.contains("Комедия"), "не комедия");
         }
 
     }
