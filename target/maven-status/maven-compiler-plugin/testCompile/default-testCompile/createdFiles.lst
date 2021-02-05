@@ -1,0 +1,6 @@
+test\BaseTest.class
+page\TutByOnlineCinemaPage.class
+test\GenreOfFilmsTest.class
+page\TutByHomePage.class
+driver\DriverSingelton.class
+page\BasePage.class

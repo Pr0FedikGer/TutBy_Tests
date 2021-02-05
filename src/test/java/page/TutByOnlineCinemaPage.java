@@ -24,6 +24,10 @@ public class TutByOnlineCinemaPage extends BasePage {
     private WebElement comedyGenre;
     @FindBy(xpath = "//li[@class='lists__li ']/descendant::div[@class='txt']")
     private ArrayList<WebElement> films;
+    @FindBy(xpath = "//li[@class='widget-tabs__li']")
+    private WebElement serials;
+    @FindBy(xpath = "//li[@class='widget-tabs__li ']")
+    private WebElement multfilms;
     private ArrayList<String> listGenreOfFilms;
 
     public TutByOnlineCinemaPage chooseGenre() {
@@ -43,6 +47,15 @@ public class TutByOnlineCinemaPage extends BasePage {
         return listGenreOfFilms;
     }
 
+    public TutByOnlineCinemaPage switchToSerials() {
+        serials.click();
+        return this;
+    }
+
+    public TutByOnlineCinemaPage switchToMultfilms() {
+        multfilms.click();
+        return this;
+    }
 
     @Override
     public TutByOnlineCinemaPage openPage() {

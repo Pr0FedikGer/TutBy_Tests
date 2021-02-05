@@ -20,7 +20,7 @@ public class TutByHomePage extends BasePage {
     private WebElement sections;
     @FindBy(xpath = "//a[text()='Все разделы' and @class='topbar__link']")
     private WebElement allSections;
-    @FindBy(xpath = "//a[@href='https://afisha.tut.by/online-cinema/']")
+    @FindBy(xpath = "//a[text()='Онлайн-кинотеатры' and @class='res-h']")
     private WebElement onlineCinemaSection;
 
 
