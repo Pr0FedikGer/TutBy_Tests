@@ -1,6 +1,6 @@
 package test;
 
-import driver.DriverSingelton;
+import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.TutByHomePage;
@@ -8,18 +8,17 @@ import page.TutByHomePage;
 import java.util.List;
 
 public class GenreOfFilmsTest extends BaseTest {
-    @Test
+    @Test(description = "Check how genre filter work for films")
     public void checkGenre() {
-        List<String> listGenreOfAllFilmsOnPage = new TutByHomePage(DriverSingelton.getDriver())
+        List<String> listFilmDescriptions = new TutByHomePage(DriverManager.getInstance().getDriver())
                 .openPage()
                 .navigateToOnlineCinema()
                 .chooseGenre()
                 .viewGenre();
 
+        listFilmDescriptions.forEach(filmDescription -> Assert.assertTrue(filmDescription
+                .contains("Комедия"), "Фильтр по жанру комедия,в разделе фильмы, сработал неточно"));
 
-        for (String genreOfFilm : listGenreOfAllFilmsOnPage) {
-            Assert.assertTrue(genreOfFilm.contains("Комедия"), "не комедия");
-        }
 
     }
 }

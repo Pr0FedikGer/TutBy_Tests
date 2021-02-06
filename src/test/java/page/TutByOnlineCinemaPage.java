@@ -1,9 +1,9 @@
 package page;
 
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,7 +15,6 @@ public class TutByOnlineCinemaPage extends BasePage {
 
     public TutByOnlineCinemaPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//span[@class='caret']") // находит первый элемент, он и является жанром, глянуть еще раз позже
@@ -28,10 +27,10 @@ public class TutByOnlineCinemaPage extends BasePage {
     private WebElement serials;
     @FindBy(xpath = "//li[@class='widget-tabs__li ']")
     private WebElement multfilms;
-    private List<String> listGenreOfFilms = new ArrayList<>();
+
 
     public TutByOnlineCinemaPage chooseGenre() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(genreSection));
+        new WebDriverWait(DriverManager.getInstance().getDriver(), 10).until(ExpectedConditions.elementToBeClickable(genreSection));
         genreSection.click();
         comedyGenre.click();
 
@@ -40,10 +39,9 @@ public class TutByOnlineCinemaPage extends BasePage {
 
 
     public List<String> viewGenre() {
-        for (WebElement film : films) {
-            listGenreOfFilms.add(film.getText());
-        }
-
+        List<String> listGenreOfFilms = new ArrayList<>();
+        new WebDriverWait(DriverManager.getInstance().getDriver(), 10).until(ExpectedConditions.visibilityOfAllElements(films));
+        films.forEach(film -> listGenreOfFilms.add(film.getText()));
         return listGenreOfFilms;
     }
 
@@ -59,7 +57,7 @@ public class TutByOnlineCinemaPage extends BasePage {
 
     @Override
     public TutByOnlineCinemaPage openPage() {
-        driver.navigate().to(PAGE_URL);
+        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
         return this;
     }
 }

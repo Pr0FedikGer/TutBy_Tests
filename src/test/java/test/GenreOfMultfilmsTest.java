@@ -1,6 +1,6 @@
 package test;
 
-import driver.DriverSingelton;
+import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.TutByOnlineCinemaPage;
@@ -8,16 +8,16 @@ import page.TutByOnlineCinemaPage;
 import java.util.List;
 
 public class GenreOfMultfilmsTest {
-    @Test
+    @Test(description = "Check how genre filter work for multfilms")
     public void checkGenreMultfilms() {
 
-        List<String> listMultfilmDescriptions = new TutByOnlineCinemaPage(DriverSingelton.getDriver())
+        List<String> listMultfilmDescriptions = new TutByOnlineCinemaPage(DriverManager.getInstance().getDriver())
                 .openPage()
                 .chooseGenre()
                 .viewGenre();
 
-        for (String multfilmDescription : listMultfilmDescriptions){
-            Assert.assertTrue(multfilmDescription.contains("Комедия"),"Комедия");
-        }
+        listMultfilmDescriptions.forEach(multfilmDescription -> Assert
+                .assertTrue(multfilmDescription.contains("Комедия"), "фильтр по жанру комедия,в разделе мультфильмы, сработал неточно"));
     }
 }
+

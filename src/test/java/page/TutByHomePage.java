@@ -1,10 +1,12 @@
 package page;
 
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,6 @@ public class TutByHomePage extends BasePage {
 
     public TutByHomePage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//a[@class='topbar-burger']")
@@ -25,17 +26,18 @@ public class TutByHomePage extends BasePage {
 
 
     public TutByOnlineCinemaPage navigateToOnlineCinema() {
+        int secondTab = 1;
         sections.click();
         allSections.click();
         onlineCinemaSection.click();
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-        return new TutByOnlineCinemaPage(driver);
+        ArrayList<String> tabs = new ArrayList<>(DriverManager.getInstance().getDriver().getWindowHandles());
+        DriverManager.getInstance().getDriver().switchTo().window(tabs.get(secondTab));
+        return new TutByOnlineCinemaPage(DriverManager.getInstance().getDriver());
     }
 
     @Override
     public TutByHomePage openPage() {
-        driver.navigate().to(PAGE_URL);
+        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
         return this;
     }
 }
