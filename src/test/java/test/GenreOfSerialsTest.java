@@ -1,8 +1,8 @@
 package test;
 
 import driver.DriverManager;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import page.TutByOnlineCinemaPage;
 
 import java.util.List;
@@ -16,8 +16,9 @@ public class GenreOfSerialsTest {
                 .chooseGenre()
                 .viewGenre();
 
-        listSerialDescriptions.forEach(serialDescription -> Assert
-                .assertTrue(serialDescription.contains("Комедия"), "Фильтр по жанру комедия,в разделе сериалы, сработал неточно"));
-
+        SoftAssert softAssert = new SoftAssert();
+        listSerialDescriptions.forEach(serialDescription -> softAssert.assertTrue(serialDescription
+                .contains("Комедия"), "Фильтр по жанру комедия,в разделе сериалы, сработал неточно.Описание сериала:" + serialDescription));
+        softAssert.assertAll();
     }
 }

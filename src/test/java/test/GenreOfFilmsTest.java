@@ -3,6 +3,7 @@ package test;
 import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import page.TutByHomePage;
 
 import java.util.List;
@@ -16,8 +17,11 @@ public class GenreOfFilmsTest extends BaseTest {
                 .chooseGenre()
                 .viewGenre();
 
-        listFilmDescriptions.forEach(filmDescription -> Assert.assertTrue(filmDescription
-                .contains("Комедия"), "Фильтр по жанру комедия,в разделе фильмы, сработал неточно"));
+        SoftAssert softAssert = new SoftAssert();
+        listFilmDescriptions.forEach(filmDescription -> softAssert.assertTrue(filmDescription
+                .contains("Чехуя"), "Фильтр по жанру комедия,в разделе фильмы, сработал неточно.Описание фильма: " + filmDescription));
+        softAssert.assertAll();
+
 
 
     }
