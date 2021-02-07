@@ -16,7 +16,7 @@ public class GenreOfMultfilmsTest {
                 .openPage()
                 .chooseGenre()
                 .viewGenre();
-        
+
         SoftAssert softAssert = new SoftAssert();
         listMultfilmDescriptions.forEach(multfilmDescription -> Assert.assertTrue(multfilmDescription
                 .contains("Комедия"), "фильтр по жанру комедия,в разделе мультфильмы, сработал неточно.Описание мультфильма:" + multfilmDescription));
