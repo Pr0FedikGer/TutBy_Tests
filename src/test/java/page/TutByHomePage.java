@@ -1,20 +1,22 @@
 package page;
 
 import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import java.sql.Driver;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TutByHomePage extends BasePage {
-    private String PAGE_URL = "https://www.tut.by/";
+    private final static String PAGE_URL = "https://www.tut.by/";
 
-    public TutByHomePage(WebDriver driver) {
-        super(driver);
+    public TutByHomePage() {
+        super();
+    }
+
+    @Override
+    public TutByHomePage openPage() {
+        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
+        return this;
     }
 
     @FindBy(xpath = "//a[@class='topbar-burger']")
@@ -26,18 +28,14 @@ public class TutByHomePage extends BasePage {
 
 
     public TutByOnlineCinemaPage navigateToOnlineCinema() {
-        int secondTab = 1;
+        int secondTabIndex = 1;
         sections.click();
         allSections.click();
         onlineCinemaSection.click();
         ArrayList<String> tabs = new ArrayList<>(DriverManager.getInstance().getDriver().getWindowHandles());
-        DriverManager.getInstance().getDriver().switchTo().window(tabs.get(secondTab));
-        return new TutByOnlineCinemaPage(DriverManager.getInstance().getDriver());
+        DriverManager.getInstance().getDriver().switchTo().window(tabs.get(secondTabIndex));
+        return new TutByOnlineCinemaPage();
     }
 
-    @Override
-    public TutByHomePage openPage() {
-        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
-        return this;
-    }
+
 }

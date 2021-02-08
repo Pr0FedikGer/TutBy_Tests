@@ -8,8 +8,7 @@ public final class DriverManager {
     private static volatile DriverManager instance;
     private static WebDriver driver;
 
-    private DriverManager(WebDriver driver) {
-        this.driver = driver;
+    private DriverManager() {
     }
 
     public static DriverManager getInstance() {
@@ -19,7 +18,7 @@ public final class DriverManager {
         }
         synchronized (DriverManager.class) {
             if (instance == null) {
-                instance = new DriverManager(driver);
+                instance = new DriverManager();
             }
             return instance;
         }

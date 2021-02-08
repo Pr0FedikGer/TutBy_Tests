@@ -1,26 +1,31 @@
 package page;
 
 import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TutByOnlineCinemaPage extends BasePage {
-    private String PAGE_URL = "https://afisha.tut.by/online-cinema/";
+    private final static String PAGE_URL = "https://afisha.tut.by/online-cinema/";
 
-    public TutByOnlineCinemaPage(WebDriver driver) {
-        super(driver);
+    public TutByOnlineCinemaPage() {
     }
 
-    @FindBy(xpath = "//span[@class='caret']") // находит первый элемент, он и является жанром, глянуть еще раз позже
+    @Override
+    public TutByOnlineCinemaPage openPage() {
+        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
+        return this;
+    }
+
+    @FindBy(xpath = "//button[@type='button' and @title='Жанры']") //TODO находит первый элемент дл фильма,  сериалы и мульт надо 2-ой и 3-ий
     private WebElement genreSection;
+    // %s
     @FindBy(xpath = "//span[text()='Комедия' and @class='text']")
     private WebElement comedyGenre;
+
     @FindBy(xpath = "//li[@class='lists__li ']/descendant::div[@class='txt']")
     private List<WebElement> films;
     @FindBy(xpath = "//li[@class='widget-tabs__li']")
@@ -30,7 +35,7 @@ public class TutByOnlineCinemaPage extends BasePage {
 
 
     public TutByOnlineCinemaPage chooseGenre() {
-        new WebDriverWait(DriverManager.getInstance().getDriver(), 10).until(ExpectedConditions.elementToBeClickable(genreSection));
+        WaitUtil.waitForElementToBeClickable(genreSection);
         genreSection.click();
         comedyGenre.click();
 
@@ -40,8 +45,13 @@ public class TutByOnlineCinemaPage extends BasePage {
 
     public List<String> viewGenre() {
         List<String> listGenreOfFilms = new ArrayList<>();
-        new WebDriverWait(DriverManager.getInstance().getDriver(), 10).until(ExpectedConditions.visibilityOfAllElements(films));
-        films.forEach(film -> listGenreOfFilms.add(film.getText()));
+        WaitUtil.waitForPageLoad(7);
+        try {
+            Thread.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        films.forEach(film -> listGenreOfFilms.add(film.getText())); //TODO StaleElementException выскакивакет, разобраться(слип временно)
         return listGenreOfFilms;
     }
 
@@ -55,9 +65,4 @@ public class TutByOnlineCinemaPage extends BasePage {
         return this;
     }
 
-    @Override
-    public TutByOnlineCinemaPage openPage() {
-        DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
-        return this;
-    }
 }

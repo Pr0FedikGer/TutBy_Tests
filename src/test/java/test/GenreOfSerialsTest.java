@@ -1,6 +1,5 @@
 package test;
 
-import driver.DriverManager;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.TutByOnlineCinemaPage;
@@ -11,8 +10,9 @@ public class GenreOfSerialsTest {
     @Test(description = "Check how genre filter work for serials")
     public void checkSerialGenre() {
 
-        List<String> listSerialDescriptions = new TutByOnlineCinemaPage(DriverManager.getInstance().getDriver())
+        List<String> listSerialDescriptions = new TutByOnlineCinemaPage()
                 .openPage()
+                .switchToSerials()
                 .chooseGenre()
                 .viewGenre();
 

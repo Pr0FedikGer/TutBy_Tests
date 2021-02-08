@@ -1,8 +1,0 @@
-test\BaseTest.class
-page\TutByOnlineCinemaPage.class
-test\GenreOfFilmsTest.class
-test\GenreOfMultfilmsTest.class
-page\BasePage.class
-page\TutByHomePage.class
-driver\DriverSingelton.class
-test\GenreOfSerialsTest.class
