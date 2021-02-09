@@ -1,10 +1,10 @@
 package entities;
 
-public enum GenreSections {
+public enum MainSectionsOfGenres {
     FILMS(0), SERIALS(1), MULTFILMS(2);
     int value;
 
-    GenreSections(int value) {
+    MainSectionsOfGenres(int value) {
         this.value = value;
     }
 

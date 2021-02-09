@@ -1,6 +1,9 @@
 package page;
 
 import driver.DriverManager;
+import entities.MainSectionsOfGenres;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.WaitUtil;
@@ -20,38 +23,36 @@ public class TutByOnlineCinemaPage extends BasePage {
         return this;
     }
 
-    @FindBy(xpath = "//button[@type='button' and @title='Жанры']") //TODO находит первый элемент дл фильма,  сериалы и мульт надо 2-ой и 3-ий
-    private WebElement genreSection;
-    // %s
-    @FindBy(xpath = "//span[text()='Комедия' and @class='text']")
-    private WebElement comedyGenre;
 
+    @FindBy(xpath = "//button[@type='button' and @title='Жанры']")
+    private List<WebElement> genreSection;
     @FindBy(xpath = "//li[@class='lists__li ']/descendant::div[@class='txt']")
     private List<WebElement> films;
-    @FindBy(xpath = "//li[@class='widget-tabs__li']")
+    @FindBy(xpath = "//li[@class='widget-tabs__li ']/a[text()='Сериалы']")
     private WebElement serials;
-    @FindBy(xpath = "//li[@class='widget-tabs__li ']")
+    @FindBy(xpath = "//li[@class='widget-tabs__li ']/a[text()='Мультфильмы']")
     private WebElement multfilms;
 
 
-    public TutByOnlineCinemaPage chooseGenre() {
-        WaitUtil.waitForElementToBeClickable(genreSection);
-        genreSection.click();
-        comedyGenre.click();
-
+    public TutByOnlineCinemaPage chooseGenre(MainSectionsOfGenres mainSectionsOfGenres, String genre) {
+        WaitUtil.waitForElementToBeClickable(genreSection.get(mainSectionsOfGenres.getValue()));
+        genreSection.get(mainSectionsOfGenres.getValue()).click();
+        DriverManager.getInstance().getDriver().findElements(By
+                .xpath("//span[text()='" + genre + "' and @class='text']"))
+                .get(mainSectionsOfGenres.getValue()).click();
         return this;
     }
 
 
     public List<String> viewGenre() {
         List<String> listGenreOfFilms = new ArrayList<>();
-        WaitUtil.waitForPageLoad(7);
         try {
-            Thread.sleep(3);
-        } catch (InterruptedException e) {
+            films.forEach(film -> listGenreOfFilms.add(film.getText())); //TODO StaleElementException выскакиваке переодично
+        } catch (StaleElementReferenceException e) {
             e.printStackTrace();
+            WaitUtil.waitForPageLoad(10);
+            films.forEach(film -> listGenreOfFilms.add(film.getText()));
         }
-        films.forEach(film -> listGenreOfFilms.add(film.getText())); //TODO StaleElementException выскакивакет, разобраться(слип временно)
         return listGenreOfFilms;
     }
 
@@ -64,5 +65,6 @@ public class TutByOnlineCinemaPage extends BasePage {
         multfilms.click();
         return this;
     }
+
 
 }

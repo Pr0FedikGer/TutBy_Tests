@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/HP/IdeaProjects/cinemaTests"><classes><class name="test.GenreOfFilmsTest"><methods><include name="checkGenre"/></methods></class><class name="test.GenreOfMultfilmsTest"><methods><include name="checkGenreMultfilms"/></methods></class><class name="test.GenreOfSerialsTest"><methods><include name="checkSerialGenre"/></methods></class></classes></test></suite>
