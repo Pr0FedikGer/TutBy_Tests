@@ -1,12 +1,12 @@
 package test;
 
 import driver.DriverManager;
-import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
+import page.TutByHomePage;
 
 public class BaseTest {
-    protected static final Logger log = Logger.getLogger(GenreOfFilmsTest.class);
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -16,6 +16,22 @@ public class BaseTest {
     @AfterClass(alwaysRun = true)
     public void closeBrowser() {
         DriverManager.getInstance().closeDriver();
+    }
+
+
+    @BeforeGroups(groups = "Serials", alwaysRun = true)
+    public void openOnlineCinemaPage() {
+        new TutByHomePage()
+                .openPage()
+                .navigateToOnlineCinema();
+    }
+
+    @BeforeGroups(groups = "Multfilms", alwaysRun = true)
+    public void openOnlineCinemaPageOnMultfilms() {
+        new TutByHomePage()
+                .openPage()
+                .navigateToOnlineCinema()
+                .switchToMultfilms();
     }
 
 }

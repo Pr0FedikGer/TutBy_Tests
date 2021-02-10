@@ -2,13 +2,13 @@ package entities;
 
 public enum MainSectionsOfGenres {
     FILMS(0), SERIALS(1), MULTFILMS(2);
-    int value;
+    int index;
 
-    MainSectionsOfGenres(int value) {
-        this.value = value;
+    MainSectionsOfGenres(int index) {
+        this.index = index;
     }
 
-    public int getValue() {
-        return value;
+    public int getIndex() {
+        return index;
     }
 }

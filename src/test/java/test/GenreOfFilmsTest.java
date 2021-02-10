@@ -3,7 +3,7 @@ package test;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.TutByHomePage;
-import utils.RandomGenre;
+import utils.RandomGenerator;
 
 import java.util.List;
 
@@ -13,19 +13,18 @@ public class GenreOfFilmsTest extends BaseTest {
 
     @Test(description = "Check how genre filter work for films")
     public void checkGenre() {
-        String genre = new RandomGenre().chooseRandomGenre();
+        String genre = RandomGenerator.getRandomGenre();
 
         List<String> listFilmDescriptions = new TutByHomePage()
                 .openPage()
                 .navigateToOnlineCinema()
                 .chooseGenre(FILMS, genre)
-                .viewGenre();
+                .createListDescriptions();
 
         SoftAssert softAssert = new SoftAssert();
         listFilmDescriptions.forEach(filmDescription -> softAssert.assertTrue(filmDescription
                 .contains(genre), "Фильтр по жанру " + genre + ",в разделе фильмы, сработал неточно.Описание фильма: " + filmDescription));
         softAssert.assertAll();
 
-        log.info("Проверка фильтра жанров, проверяемый жанр: " + genre + ",в разделе фильмы");
     }
 }

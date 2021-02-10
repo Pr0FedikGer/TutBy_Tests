@@ -15,6 +15,7 @@ public class TutByHomePage extends BasePage {
 
     @Override
     public TutByHomePage openPage() {
+        log.info("Открывается главная страница Tut.by по адресу:" + PAGE_URL);
         DriverManager.getInstance().getDriver().navigate().to(PAGE_URL);
         return this;
     }
@@ -34,6 +35,7 @@ public class TutByHomePage extends BasePage {
         onlineCinemaSection.click();
         ArrayList<String> tabs = new ArrayList<>(DriverManager.getInstance().getDriver().getWindowHandles());
         DriverManager.getInstance().getDriver().switchTo().window(tabs.get(secondTabIndex));
+        log.info("Переход на страницу Онлайн-кинотеатры TutBy");
         return new TutByOnlineCinemaPage();
     }
 
