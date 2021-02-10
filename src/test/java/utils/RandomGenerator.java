@@ -2,7 +2,6 @@ package utils;
 
 import entities.Genres;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomGenerator {
