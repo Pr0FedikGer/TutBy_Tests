@@ -49,7 +49,7 @@ public class TutByOnlineCinemaPage extends BasePage {
         List<String> listOfMovieDescriptions = new ArrayList<>();
         log.info("Явное ожидание в течении 30 секунд, пока элемент прогрузится");
         WaitUtil.waitForPresenceOfElementLocated("//li[@class='lists__li ']/descendant::div[@class='txt']");
-        log.info("Перезагрузка страницы, чтобы избежать StaleElementException");
+        log.info("Перезагрузка страницы");
         DriverManager.getInstance().getDriver().navigate().refresh();
         listElementsWithDescriptionCinema.forEach(cinema -> listOfMovieDescriptions.add(cinema.getText()));
         return listOfMovieDescriptions;
